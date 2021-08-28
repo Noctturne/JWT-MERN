@@ -8,6 +8,9 @@ const server = express();
 // Conectar DB
 connectDB();
 
+// bodyParser
+server.use(express.json());
+
 // Routes
 server.use('/api/users', require('./routes/users'));
 
