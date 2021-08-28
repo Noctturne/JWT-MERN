@@ -13,7 +13,7 @@ server.use(express.json());
 
 // Routes
 server.use('/api/users', require('./routes/users'));
-
+server.use('/api/auth', require('./routes/auth'));
 
 // Puerto de la app para el deployment
 const port = process.env.PORT || 4000;
