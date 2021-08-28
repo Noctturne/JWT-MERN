@@ -8,6 +8,8 @@ const server = express();
 // Conectar DB
 connectDB();
 
+// Routes
+server.use('/api/users', require('./routes/users'));
 
 
 // Puerto de la app para el deployment
