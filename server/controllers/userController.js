@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
     const {password} = req.body;
@@ -12,7 +13,23 @@ exports.createUser = async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
 
         await user.save();
-        res.send('User created!');
+
+        // Crear JWT
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+        //Firmarlo 
+        jwt.sign(payload, process.env.JWT_WORD, {
+            expiresIn: 3600 // 1 hora
+        }, (err, token) => {
+            if(err) throw err;
+
+            res.json({token});
+        });
+
+       
         
     } catch (e) {
         console.log(e);
